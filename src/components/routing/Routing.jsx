@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayouts from "../layouts/MainLayouts";
-import HomeNav from "../homeNav/HomeNav";
 import InstallationNav from "../installationNav/installationNav";
 import AppsNav from "../appsNav/AppsNav";
 import DashBoardNav from "../dashBoardNav/DashBoardNav";
 import AppDetails from "../appDetails/AppDetails";
 import Error from "../errorPages/Error";
+import HomePages from "../homePages/HomePages";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: HomeNav
+        Component: HomePages
       },
       {
         path: '/apps',
