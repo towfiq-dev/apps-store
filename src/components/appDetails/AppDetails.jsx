@@ -1,7 +1,9 @@
-import React, { use } from 'react';
+import React, { use, useContext } from 'react';
 import { BiLike } from 'react-icons/bi';
 import { FaDownload, FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const appPromise = fetch('/data.json').then(appRes=> appRes.json());
 const AppDetails = () => {
@@ -9,7 +11,20 @@ const AppDetails = () => {
   const {appDetailsId} = useParams()
   
   const expectedApp = appDetailsData.find((app)=> app.id == appDetailsId)
-  const {title, image, downloads, ratingAvg, reviews, description, companyName} = expectedApp
+  const {title, image, downloads, ratingAvg, reviews, description, companyName, id} = expectedApp
+
+  const {installApp, setInstallApp} = useContext(AppContext)
+  
+  const handleInstall=()=>{
+  const isExistApp = installApp.find((app)=> app.id === id)
+  if (isExistApp) {
+    return toast.warning(`${title} is all ready exist`)
+  }
+  else{
+    setInstallApp([...installApp, expectedApp])
+    toast.success(`${title} is Successfully Installed`)
+  }
+  }
 
   return (
     <div className='mt-20 max-w-300 mx-auto'>
@@ -20,10 +35,11 @@ const AppDetails = () => {
       </div>
       <div>
         <h2 className='text-3xl font-bold mb-3'>{title}</h2>
-        <h2 className='text-[18px] mb-6'> Developed by <small className='text-[18px] text-green-500 font-semibold'>{companyName}</small> </h2>
+        <h2 className='text-[18px] mb-6'> Developed by <small className='text-[18px] text-green-500 font-semibold'>{companyName}</small> 
+        </h2>
         <hr />
         <div className='flex gap-15 mt-15'>
-          <span >
+        <span >
         <FaDownload className='text-4xl text-green-500 font-bold mb-3'></FaDownload>
         <p className='mb-3'>Downloads</p>
         <h2 className='text-4xl font-bold mb-3'>{downloads}</h2>
@@ -40,7 +56,10 @@ const AppDetails = () => {
         </span>
         
         </div>
-        <button className='btn mt-3 btn-primary'>Install Now (291 MB)</button>
+        <button className='btn mt-3 btn-primary' 
+        onClick={handleInstall}>
+          Install Now (291 MB)
+          </button>
       </div>
     </div>
     <hr className='mt-6 mb-5'/>

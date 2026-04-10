@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaDownload, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { HashLoader } from 'react-spinners';
 
 const TrendingApp = ({appData}) => {
   const {title, image, downloads, ratingAvg, id} = appData
@@ -21,7 +22,7 @@ const TrendingApp = ({appData}) => {
         </h3>
       
       </div>
-      <Link to={`/appDetails/${id}`} className='flex justify-center btn-primary mt-5'>
+      <Link to={`/appDetails/${id}`} className='flex justify-center btn-primary mt-5' fallback={<HashLoader/>}>
         <button className='btn w-full'>View Details</button>
       </Link>
     </div>
