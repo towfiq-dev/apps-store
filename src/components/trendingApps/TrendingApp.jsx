@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const TrendingApp = ({appData}) => {
   const {title, image, downloads, ratingAvg, id} = appData
   return (
-    <Link className='shadow-md p-4 rounded'>
+    <div  className='shadow-md p-4 rounded'>
       <div className='flex justify-center'>
-        <img className='w-50 h-auto rounded-full ' src={image} alt="" />
+        <img className='w-auto h-50 rounded-full ' src={image} alt="" />
       </div>
       <h2 className='text-[18px] font-semibold mb-4 mt-3'>{title}</h2>
       <div className='flex gap-5 justify-between'>
@@ -21,10 +21,10 @@ const TrendingApp = ({appData}) => {
         </h3>
       
       </div>
-      <div className='flex justify-center btn-primary mt-5'>
+      <Link to={`/appDetails/${id}`} className='flex justify-center btn-primary mt-5'>
         <button className='btn w-full'>View Details</button>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

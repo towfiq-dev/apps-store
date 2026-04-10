@@ -12,7 +12,7 @@ const TrendingApps = ({appsPromise}) => {
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between gap-6'>
         {
-          appsData.map((appData, index)=> 
+          appsData.slice(0,6).map((appData, index)=> 
           <TrendingApp 
           appData={appData} 
           key={index}>
