@@ -1,26 +1,28 @@
 import React, { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
+import { AppsContext } from '../contexts/AppsContext';
 import { FaDownload, FaStar } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-const InstallationNav = () => {
-  const {installApp, setInstallApp} = useContext(AppContext)
+const installationNav = () => {
+  const {installApps, setInstallApps} = useContext(AppsContext)
+  
   const handleUnInstall=(app)=>{
-    const filterDelete = installApp.filter((apk)=> apk.id !== app.id)
-    setInstallApp(filterDelete)
-    toast.success(`${app.title} is Successfully UnInstall`)
+    const filterDelete = installApps.filter((apk)=> apk.id !== app.id)
+    setInstallApps(filterDelete)
+    toast.success(`${app.title} is successfully UnInstall`)
   }
-  if (installApp.length === 0) {
-    return (
+  
+  if (installApps.length === 0) {
+    return(
       <div className='mt-6'>
-        <h1 className='text-4xl font-bold text-center'>No Data Available</h1>
+        <h1 className='text-3xl md:text-4xl text-center font-bold'>You haven't install any apps yet</h1>
       </div>
     )
   }
   return (
     <div className='max-w-7xl mx-auto mt-10 p-4'>
       <div className='flex flex-col gap-4'>
-        {installApp.map((app, index) => (
+        {installApps.map((app, index) => (
           <div app={app} key={index} 
             className='flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-100'
           >
@@ -45,7 +47,7 @@ const InstallationNav = () => {
 
             <div>
               <button className='bg-[#00d084] btn hover:bg-green-600 text-white px-5 py-2 rounded-md font-semibold transition-colors'
-               onClick={()=>handleUnInstall(app)}>
+              onClick={()=> handleUnInstall(app)} >
                 Uninstall
               </button>
             </div>
@@ -56,4 +58,35 @@ const InstallationNav = () => {
   );
 };
 
-export default InstallationNav;
+export default installationNav;
+
+
+
+
+
+
+
+
+// import React, { useContext } from 'react';
+// import { AppContext } from '../context/AppContext';
+// import { FaDownload, FaStar } from 'react-icons/fa';
+// import { toast } from 'react-toastify';
+
+// const InstallationNav = () => {
+//   const {installApp, setInstallApp} = useContext(AppContext)
+//   const handleUnInstall=(app)=>{
+//     const filterDelete = installApp.filter((apk)=> apk.id !== app.id)
+//     setInstallApp(filterDelete)
+//     toast.success(`${app.title} is Successfully UnInstall`)
+//   }
+//   if (installApp.length === 0) {
+//     return (
+//       <div className='mt-6'>
+//         <h1 className='text-4xl font-bold text-center'>No Data Available</h1>
+//       </div>
+//     )
+//   }
+  
+// };
+
+// export default InstallationNav;

@@ -2,7 +2,7 @@ import React, { use, useContext } from 'react';
 import { BiLike } from 'react-icons/bi';
 import { FaDownload, FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
+import { AppsContext } from '../contexts/AppsContext';
 import { toast } from 'react-toastify';
 
 const appPromise = fetch('/data.json').then(appRes=> appRes.json());
@@ -13,19 +13,20 @@ const AppDetails = () => {
   const expectedApp = appDetailsData.find((app)=> app.id == appDetailsId)
   const {title, image, downloads, ratingAvg, reviews, description, companyName, id} = expectedApp
 
-  const {installApp, setInstallApp} = useContext(AppContext)
-  
-  const handleInstall=()=>{
-  const isExistApp = installApp.find((app)=> app.id === id)
+  const {installApps, setInstallApps} = useContext(AppsContext)
+
+  const handleInstall =()=>{
+  const isExistApp = installApps.find((app)=> app.id === id)
   if (isExistApp) {
-    return toast.warning(`${title} is all ready exist`)
+    return toast.warning(`${title} is all ready install`)
   }
   else{
-    setInstallApp([...installApp, expectedApp])
-    toast.success(`${title} is Successfully Installed`)
+    setInstallApps([...installApps, expectedApp])
+    toast.success(`${title} is successfully installed`)
   }
   }
-
+  
+  
   return (
     <div className='mt-20 max-w-300 mx-auto'>
       
@@ -56,8 +57,10 @@ const AppDetails = () => {
         </span>
         
         </div>
-        <button className='btn mt-3 btn-primary' 
-        onClick={handleInstall}>
+        <button 
+        className='btn mt-3 btn-primary'
+        onClick={handleInstall}
+        >
           Install Now (291 MB)
           </button>
       </div>
